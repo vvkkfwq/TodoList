@@ -1,0 +1,25 @@
+body{
+    padding-top: 300px;
+}
+
+#title{
+    font-size: 80px;
+}
+
+.form-signin{
+    max-width: 330px;
+    width: 100%;
+    margin: auto;
+}
+
+#userName{
+    margin-bottom: 5px;
+}
+
+#userPsw{
+    margin-bottom: 5px;
+}
+
+#bottom{
+    margin-top: 250px;
+}

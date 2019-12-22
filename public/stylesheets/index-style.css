@@ -1,0 +1,62 @@
+body{
+    
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 20px 0 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.middleArea{
+    height: 1000px;
+    min-height: 1000px;
+}
+
+.myNav{
+    height: 100%;
+}
+
+.mainArea{
+    
+}
+
+.allList{
+    width: 450px;
+    height: 800px;
+    margin-left: 30px;
+    position: relative;
+    padding: 30px;
+    margin-top: 100px;
+}
+
+.form-upload{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0px;
+    height: 60px;
+}
+
+.txtTodoName{
+    margin-top: 12px;
+    border-radius: 20px;
+    border: 1px solid #dee2e6;
+    width: 380px;
+    padding: 5px;
+    font-size: 16px;
+    margin-left: 10px;
+    height: 36px;
+}
+
+.btn-upload{
+    width: 45px;
+    margin-left: 0px;
+    border: 1px solid #dee2e6;
+    height: 36px;
+    padding: 0 !important;
+}
