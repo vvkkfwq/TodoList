@@ -27,9 +27,6 @@ router.get('/loginDao',function (req, res, next) {
         var param = req.query || req.params;
         var UserName = param.userName;
         var Password = param.userPsw;
-        console.log("ttt");
-        console.log(UserName);
-        console.log(Password);
         var _res = res;
         var sql = 'select * from User';
         connection.query(sql, function (err, res, result) {
@@ -45,7 +42,7 @@ router.get('/loginDao',function (req, res, next) {
             data.isLogin = isTrue; //如果isTrue布尔值为true则登陆成功 有false则失败
             if(isTrue) {
                 data.userInfo = {};
-                data.userInfo.uid = UserName;
+                data.userInfo.uid = Username;
                 data.userInfo.userName = Password;
             } //登录成功返回用户信息
             if(result) {
