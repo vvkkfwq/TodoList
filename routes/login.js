@@ -7,20 +7,22 @@ router.get('/', function (req, res, next) {
     res.render('login', {"message":""});
 });
 
-router.get('/login', function (req, res, next) {
+router.post('/index', function (req, res, next) {
     // 导入MySql模块
     var mysql = require('mysql');
     var dbConfig = require('../dao/dbConfig');
+    var cookie = require('cookie-parser');
+    router.use(cookie());
 
     // 使用DBConfig.js的配置信息创建一个MySql链接池
     var pool = mysql.createPool(dbConfig.mysql);
 
     pool.getConnection(function (err, connection) {
         // 获取前台页面传过来的参数
-        var param = req.query;
+        var param = req.body;
         var Username = param.userName;
         var Password = param.userPsw;
-        var sql = "select UserId from User where UserName = '" + Username + "' and PassWord = '" + Password + "'";
+        var sql = "select * from User where UserName = '" + Username + "' and PassWord = '" + Password + "'";
 
 
         connection.query(sql, function (err, result, fields) {
@@ -29,7 +31,8 @@ router.get('/login', function (req, res, next) {
                 console.log("帐号密码错误");
                 res.render('login', {"message":"账号密码错误"});
             } else {
-                console.log("OK");
+                console.log("登陆成功");
+                res.cookie('uid', result[0].UserId);
                 res.render('index');
             }
 
@@ -41,5 +44,8 @@ router.get('/login', function (req, res, next) {
     });
 });
 
+router.get('/index', function(req, res, next){
+    res.render('index');
+})
 
 module.exports = router;
