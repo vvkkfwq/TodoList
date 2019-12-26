@@ -7,6 +7,10 @@ router.get('/', function (req, res, next) {
     res.render('login', {"message":""});
 });
 
+router.get('/loginOut', function (req, res, next) {
+    res.redirect('/');
+});
+
 router.post('/index', function (req, res, next) {
     // 导入MySql模块
     var mysql = require('mysql');
