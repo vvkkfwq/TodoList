@@ -25,20 +25,6 @@ $(document).ready(function () {
         }
     });
 
-    $.ajax({
-        type: 'post',
-        url: 'http://localhost:3000/index/getFinishedList',
-        success: function (data) {
-            var list = jQuery.parseJSON(data);
-            for (var i = 0; i < list.length; i++) {
-                $("#list2").append("<li class='list-group-item t1'>" + list[i].Todo_Name + "<button type='button' class='btn btn-outline-primary btn-upload align-middle btn-delect-finished' style='float: right'>删除</button></li>")
-            }
-        },
-        error: function (err) {
-            console.log(err)
-        }
-    });
-
     $("#a2").click(function () {
         $("#a1").removeClass("bechosen");
         $("#a2").addClass("bechosen");
@@ -51,6 +37,25 @@ $(document).ready(function () {
 
     $("#list").on("click", ".btn-detail", function () {
         $("#listDetail").removeClass("hide");
+        var str = $(this).parent().clone().children().remove().end().text();
+        var obj = {};
+        obj['Todo_Name'] = str;
+        console.log(str);
+        $.ajax({
+            type:'post',
+            url:'http://localhost:3000/index/getDetail',
+            data: obj,
+            success:function(data){
+                console.log(data);
+                var date = new Date(data[0].Closing_Date).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                console.log(date);
+                $("#closing-time").val(date);
+                $("#txt").val(data[0].Comment);
+            },
+            error: function(err){
+                console.log(err);
+            }
+        })
     });
 
     $(".btn-close").click(function(){
@@ -83,28 +88,6 @@ $(document).ready(function () {
         })
     });
 
-    $("#list2").on("click", ".btn-delect-finished", function () {
-        var str = $(this).parent().clone().children().remove().end().text();
-        var obj = {};
-        obj['Todo_Name'] = str;
-        $.ajax({
-            type: "post",
-            url: 'http://localhost:3000/index/deleteFinishedList',
-            data: obj,
-            success: function (data) {
-                if (data == "1"){
-                    window.location.reload();
-                    alert("删除已完成任务成功");
-                }else{
-                    alert("任务删除失败");
-                }
-            },
-            error: function(err){
-                console.log(err);
-            }
-        })
-    });
-
     $("#list").on("click", ".btn-finished", function () {
         var str = $(this).parent().clone().children().remove().end().text();
         var obj = {};
@@ -126,8 +109,6 @@ $(document).ready(function () {
             }
         })
     });
-
-
 
     $("#a2").click(function(){
         $("#l1").addClass("hide");

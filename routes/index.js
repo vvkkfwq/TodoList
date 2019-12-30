@@ -57,7 +57,6 @@ router.post('/getList', function (req, res, next) {
   pool.getConnection(function (err, connection) {
     // 获取前台页面传过来的参数
     var uid = req.cookies.uid;
-    console.log(uid);
     var sql = "select * from MyList where UserId = '" + uid + "'";
 
 
@@ -217,7 +216,6 @@ router.post('/deleteList', function (req, res, next) {
   pool.getConnection(function (err, connection) {
     // 获取前台页面传过来的参数
     var todo = req.body.Todo_Name;
-    console.log(todo);
     var sql = 'delete from Mylist where Todo_Name = ?';
 
     connection.query(sql, [todo], function(err, result, fields){
@@ -234,14 +232,13 @@ router.post('/deleteList', function (req, res, next) {
   });
 });
 
-//删除已完成任务
-router.post('/deleteFinishedList', function (req, res, next) {
-
+//获取任务详情
+router.post('/getDetail', function(req, res, next){
   //使用cookie
   var cookie = require('cookie-parser');
   router.use(cookie());
 
-  // 导入MySql模块
+  //导入MySQL模块
   var mysql = require('mysql');
   var dbConfig = require('../dao/dbConfig');
 
@@ -249,71 +246,29 @@ router.post('/deleteFinishedList', function (req, res, next) {
   var pool = mysql.createPool(dbConfig.mysql);
 
   pool.getConnection(function (err, connection) {
-    // 获取前台页面传过来的参数
-    var todo = req.body.Todo_Name;
-    console.log(todo);
-    var sql = 'delete from Finishedlist where Todo_Name = ?';
-
-    connection.query(sql, [todo], function(err, result, fields){
-      if (err) throw err;
-      else{
-        console.log("删除已完成任务成功");
-        res.send("1");
-      }
-
-      // 释放链接
-      connection.release();
-
-    });
-  });
-});
-
-//获取已完成任务列表
-router.post('/getFinishedList', function (req, res, next) {
-
-  //使用cookie
-  var cookie = require('cookie-parser');
-  router.use(cookie());
-
-  // 导入MySql模块
-  var mysql = require('mysql');
-  var dbConfig = require('../dao/dbConfig');
-
-  // 使用DBConfig.js的配置信息创建一个MySql链接池
-  var pool = mysql.createPool(dbConfig.mysql);
-
-  pool.getConnection(function (err, connection) {
-    // 获取前台页面传过来的参数
-    var uid = req.cookies.uid;
-    console.log(uid);
-    var sql = "select * from FinishedList where UserId = '" + uid + "'";
+      // 获取前台页面传过来的参数
+      var uid = req.cookies.uid;
+      var name = req.body.Todo_Name;
+      var sql = "select * from MyList where UserId = '" + uid + "' and Todo_Name = '" + name + "'";
 
 
-    connection.query(sql, function (err, result, fields) {
-      if (err) throw err;
-      if (result == '') {
-        console.log("获取已完成任务列表失败");
-        res.render('index');
-      } else {
-        console.log("获取已完成任务列表成功");
-        var reponse = JSON.stringify(result);
-        res.send(reponse);
-      }
+      connection.query(sql, function (err, result, fields) {
+          if (err) throw err;
+          if (result == '') {
+              console.log("获取任务详情失败");
+              res.send(false);
+          } else {
+              console.log("获取任务详情成功");
+              res.send(result);
+          }
 
-      // 释放链接
-      connection.release();
+          // 释放链接
+          connection.release();
 
-    });
+      });
 
   });
 
-});
-
-
-
-
-
-
-
+})
 
 module.exports = router;

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="stylesheets/index-style.css">
     <link rel="stylesheet" href="stylesheets/style.css">
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="javascripts/index.js" type="text/javascript"></script>
+    <script src="javascripts/finished.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -36,7 +36,7 @@
                             <span id="UserName"></span>
                         </button>
                         <div class="dropdown-menu">
-                            <button type="button" class="dropdown-item" id="loginOut">退出</a>
+                            <button type="button" class="dropdown-item" id="loginOut"><a href="/">退出</a></a>
                         </div>
                     </div>
                 </li>
@@ -72,7 +72,7 @@
                         </a>
                     </h4>
                     <li class="nav-item">
-                        <a class="nav-link active bechosen" href="#" id="a1">
+                        <a class="nav-link active" href="/index" id="a1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-home">
@@ -83,7 +83,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="a2">
+                        <a class="nav-link bechosen" href="#" id="a2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file">
@@ -155,36 +155,12 @@
             </nav>
             <div class="col-9" class="mainArea">
                 <div class="row">
-                    <!-- 任务添加 -->
-                    <div class="allList border border rounded shadow position-sticky" id="l1">
-                        <div class="todo-name h1" id="TodoName">所有任务</div>
-                        <div class="card" style="width: 24rem;">
-                            <ul class="list-group list-group-flush" id="list">
+                    <!-- 已完成列表 -->
 
-                            </ul>
-                        </div>
-                        <div class="form-upload border-top">
-                            <form action="/index/addList" method="POST">
-                                <input type="text" name="txtTodoName" id="txtTodoName" class="txtTodoName">
-                                <button type="submit" class="btn btn-outline-primary btn-upload align-bottom">
-                                    <svg class="bi bi-arrow-up-short btn-icon" width="2em" height="2em"
-                                         viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M10 7.5a.5.5 0 01.5.5v5a.5.5 0 01-1 0V8a.5.5 0 01.5-.5z"
-                                              clip-rule="evenodd" />
-                                        <path fill-rule="evenodd"
-                                              d="M9.646 6.646a.5.5 0 01.708 0l3 3a.5.5 0 01-.708.708L10 7.707l-2.646 2.647a.5.5 0 01-.708-.708l3-3z"
-                                              clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="allList border border rounded shadow position-sticky hide" id="l2">
+                    <div class="allList border border rounded shadow position-sticky">
                         <div class="todo-name h1" id="TodoName">已完成</div>
                         <div class="card" style="width: 24rem;">
-                            <ul class="list-group list-group-flush" id="list2">
+                            <ul class="list-group list-group-flush" id="list">
 
                             </ul>
                         </div>
