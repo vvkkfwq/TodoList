@@ -40,7 +40,7 @@ $(document).ready(function () {
         var str = $(this).parent().clone().children().remove().end().text();
         var obj = {};
         obj['Todo_Name'] = str;
-        $("#listDetail #TodoName").html(str);
+        $("#listDetail #TodoName2").html(str);
         $.ajax({
             type: 'post',
             url: 'http://localhost:3000/index/getDetail',
@@ -56,6 +56,9 @@ $(document).ready(function () {
                 var result = date.getFullYear() + '-' + month + '-' + day; //当前日
                 if (result != "1970-01-01") {
                     $("#closing-time").val(result);
+                }
+                else{
+                    $("#closing-time").val("");
                 }
                 $("#txt").val(data[0].Comment);
             },

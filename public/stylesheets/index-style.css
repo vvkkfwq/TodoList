@@ -74,3 +74,28 @@ body{
     bottom: 30px;
     left: 160px;
 }
+
+#TodoName2{
+    margin-bottom: 50px;
+}
+
+#closing-time{
+    border-radius: 20px;
+    border: 1px solid #dee2e6;
+    width: 380px;
+    padding: 5px;
+    font-size: 16px;
+    margin-left: 5px;
+    height: 36px;
+    margin-bottom: 60px;
+}
+
+#txt{
+    border-radius: 20px;
+    border: 1px solid #dee2e6;
+    width: 380px;
+    padding: 5px;
+    font-size: 16px;
+    margin-left: 5px;
+    height: 200px;
+}
