@@ -40,25 +40,32 @@ $(document).ready(function () {
         var str = $(this).parent().clone().children().remove().end().text();
         var obj = {};
         obj['Todo_Name'] = str;
-        console.log(str);
+        $("#listDetail #TodoName").html(str);
         $.ajax({
-            type:'post',
-            url:'http://localhost:3000/index/getDetail',
+            type: 'post',
+            url: 'http://localhost:3000/index/getDetail',
             data: obj,
-            success:function(data){
+            success: function (data) {
                 console.log(data);
-                var date = new Date(data[0].Closing_Date).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
-                console.log(date);
-                $("#closing-time").val(date);
+                var date = new Date(data[0].Closing_Date);
+                var month = date.getMonth() + 1;
+                var day = date.getDate();
+                month = (month.toString().length == 1) ? ("0" + month) : month;
+                day = (day.toString().length == 1) ? ("0" + day) : day;
+
+                var result = date.getFullYear() + '-' + month + '-' + day; //当前日
+                if (result != "1970-01-01") {
+                    $("#closing-time").val(result);
+                }
                 $("#txt").val(data[0].Comment);
             },
-            error: function(err){
+            error: function (err) {
                 console.log(err);
             }
         })
     });
 
-    $(".btn-close").click(function(){
+    $(".btn-close").click(function () {
         $("#listDetail").addClass("hide");
     });
 
@@ -75,14 +82,14 @@ $(document).ready(function () {
             url: 'http://localhost:3000/index/deleteList',
             data: obj,
             success: function (data) {
-                if (data == "1"){
+                if (data == "1") {
                     window.location.reload();
                     alert("任务删除成功");
-                }else{
+                } else {
                     alert("任务删除失败");
                 }
             },
-            error: function(err){
+            error: function (err) {
                 console.log(err);
             }
         })
@@ -97,41 +104,108 @@ $(document).ready(function () {
             url: 'http://localhost:3000/index/finishedList',
             data: obj,
             success: function (data) {
-                if (data == "1"){
+                if (data == "1") {
                     window.location.reload();
                     alert("任务已完成");
-                }else{
+                } else {
                     alert("请重试");
                 }
             },
-            error: function(err){
+            error: function (err) {
                 console.log(err);
             }
         })
     });
 
-    $("#a2").click(function(){
+    $("#a2").click(function () {
         $("#l1").addClass("hide");
         $("#l2").removeClass("hide");
     });
 
-    $("#a1").click(function(){
+    $("#a1").click(function () {
         $("#l2").addClass("hide");
         $("#l1").removeClass("hide");
     });
 
-    $("#loginOut").click(function(){
-        console.log("1");
+    $("#loginOut").click(function () {
         $.ajax({
-            type:'get',
-            // url:'http://localhost:3000/loginOut',
-            success:function(data){
-                alert("退出成功");
+            type: 'post',
+            url:'http://localhost:3000/index/loginOut',
+            success: function (data) {
+                if(data == "1"){
+                     alert("退出成功");
+                     window.location.href = "/";
+                }
+               
             },
-            error:function(err){
+            error: function (err) {
                 console.log(err);
             }
         })
     });
+
+    $(".btn-update").click(function () {
+        var name = $("#listDetail #TodoName").text();
+        var obj = {};
+        obj['Todo_Name'] = name;
+        obj['Closing_Date'] = $("#closing-time").val();
+        obj['Comment'] = $("#txt").val();
+        console.log(obj);
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:3000/index/setDetail',
+            data: obj,
+            success: function (data) {
+                if (data) {
+                    alert("任务更新成功");
+                    window.location.reload();
+                } else {
+                    alert("任务更新失败");
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    });
+
+    $(".btn-close").click(function(){
+        $("#listDetail").addClass("hide");
+    });
+
+    $("#btn-search").click(function () {
+        var str = $("#txtSearch").val();
+        var obj = {};
+        obj['Todo_Name'] = str;
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:3000/index/getDetail',
+            data: obj,
+            success: function (data) {
+                if (data) {
+                    var date = new Date(data[0].Closing_Date);
+                    var month = date.getMonth() + 1;
+                    var day = date.getDate();
+                    month = (month.toString().length == 1) ? ("0" + month) : month;
+                    day = (day.toString().length == 1) ? ("0" + day) : day;
+
+                    var result = date.getFullYear() + '-' + month + '-' + day; //当前日
+                    if (result != "1970-01-01") {
+                        $("#closing-time").val(result);
+                    }
+                    $("#txt").val(data[0].Comment);
+                    $("#listDetail").removeClass("hide");
+                    $("#listDetail #TodoName").html(str);
+                }
+                else{
+                    alert("查询不到此任务名称，请检查再输入");
+                    $("#txtSearch").val("");
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    })
 
 })

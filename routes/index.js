@@ -269,6 +269,57 @@ router.post('/getDetail', function(req, res, next){
 
   });
 
-})
+});
+
+//更新任务详情
+router.post('/setDetail', function(req, res, next){
+  //使用cookie
+  var cookie = require('cookie-parser');
+  router.use(cookie());
+
+  //导入MySQL模块
+  var mysql = require('mysql');
+  var dbConfig = require('../dao/dbConfig');
+
+  // 使用DBConfig.js的配置信息创建一个MySql链接池
+  var pool = mysql.createPool(dbConfig.mysql);
+
+  pool.getConnection(function (err, connection) {
+      // 获取前台页面传过来的参数
+      var uid = req.cookies.uid;
+      var name = req.body.Todo_Name;
+      var updateDate = req.body.Closing_Date;
+      var updateComment = req.body.Comment; 
+      if (updateDate == ""){
+        updateDate = null;
+      }
+      var sql = "update MyList set Closing_Date = ?, Comment = ? where UserId = '" + uid + "' and Todo_Name = '" + name + "'";
+
+
+      connection.query(sql, [updateDate, updateComment], function (err, result, fields) {
+          if (err) throw err;
+          else {
+              console.log("更新任务详情成功");
+              res.send(true);
+          }
+
+          // 释放链接
+          connection.release();
+
+      });
+
+  });
+
+});
+
+router.post('/loginOut', function(req, res, next){
+  //使用cookie
+  var cookie = require('cookie-parser');
+  router.use(cookie());
+  res.clearCookie('uid');
+  res.send("1");
+});
+
+
 
 module.exports = router;

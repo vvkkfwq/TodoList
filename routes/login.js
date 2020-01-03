@@ -7,10 +7,6 @@ router.get('/', function (req, res, next) {
     res.render('login', {"message":""});
 });
 
-router.get('/loginOut', function (req, res, next) {
-    res.redirect('/');
-});
-
 router.post('/index', function (req, res, next) {
     // 导入MySql模块
     var mysql = require('mysql');
@@ -50,6 +46,40 @@ router.post('/index', function (req, res, next) {
 
 router.get('/index', function(req, res, next){
     res.render('index');
-})
+});
+
+router.get('/signup', function(req, res, next){
+    res.render('signup');
+});
+
+router.post('/sign', function(req, res, next){
+// 导入MySql模块
+var mysql = require('mysql');
+var dbConfig = require('../dao/dbConfig');
+
+// 使用DBConfig.js的配置信息创建一个MySql链接池
+var pool = mysql.createPool(dbConfig.mysql);
+
+pool.getConnection(function (err, connection) {
+  // 获取前台页面传过来的参数
+  var name = req.body.UserName;
+  var psw = req.body.PassWord;
+  var sql = "insert into User (UserName, PassWord) values (?, ?)";
+
+
+  connection.query(sql, [name, psw], function (err, result, fields) {
+    if (err) throw err;
+    else {
+      console.log("注册成功");
+      res.send(true);
+    }
+
+    // 释放链接
+    connection.release();
+
+  });
+
+});
+});
 
 module.exports = router;

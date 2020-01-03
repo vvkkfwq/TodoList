@@ -60,3 +60,17 @@ body{
     height: 36px;
     padding: 0 !important;
 }
+
+.btn-update{
+    position: absolute;
+    float: left;
+    bottom: 30px;
+    left: 240px;
+}
+
+.btn-close{
+    position: absolute;
+    float: left;
+    bottom: 30px;
+    left: 160px;
+}

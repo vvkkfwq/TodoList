@@ -23,7 +23,7 @@
 	<!-- 顶部 -->
 	<div class="head">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<a class="navbar-brand" href="#">主页</a>
+			<a class="navbar-brand" href="/index">主页</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -32,19 +32,19 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
 						<div class="btn-group">
-							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							  <span id="UserName"></span>
+							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false">
+								<span id="UserName"></span>
 							</button>
 							<div class="dropdown-menu">
-							  <button type="button" class="dropdown-item" id="loginOut">退出</a>
+								<button type="button" class="dropdown-item" id="loginOut">登出</a>
 							</div>
-						  </div>
+						</div>
 					</li>
 				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-				</form>
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+					id="txtSearch">
+				<button class="btn btn-outline-light my-2 my-sm-0" type="button" id="btn-search">Search</button>
 			</div>
 		</nav>
 	</div>
@@ -94,63 +94,6 @@
 							</a>
 						</li>
 
-						<h4
-							class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-							<span>我的标签</span>
-							<a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-									stroke-linejoin="round" class="feather feather-plus-circle">
-									<circle cx="12" cy="12" r="10"></circle>
-									<line x1="12" y1="8" x2="12" y2="16"></line>
-									<line x1="8" y1="12" x2="16" y2="12"></line>
-								</svg>
-							</a>
-						</h4>
-						<ul class="nav flex-column mb-2">
-							<li class="nav-item">
-								<a class="nav-link" href="#">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-										stroke-linejoin="round" class="feather feather-file-text">
-										<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-										<polyline points="14 2 14 8 20 8"></polyline>
-										<line x1="16" y1="13" x2="8" y2="13"></line>
-										<line x1="16" y1="17" x2="8" y2="17"></line>
-										<polyline points="10 9 9 9 8 9"></polyline>
-									</svg>
-									重要
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-										stroke-linejoin="round" class="feather feather-file-text">
-										<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-										<polyline points="14 2 14 8 20 8"></polyline>
-										<line x1="16" y1="13" x2="8" y2="13"></line>
-										<line x1="16" y1="17" x2="8" y2="17"></line>
-										<polyline points="10 9 9 9 8 9"></polyline>
-									</svg>
-									紧急
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">
-									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-										stroke-linejoin="round" class="feather feather-file-text">
-										<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-										<polyline points="14 2 14 8 20 8"></polyline>
-										<line x1="16" y1="13" x2="8" y2="13"></line>
-										<line x1="16" y1="17" x2="8" y2="17"></line>
-										<polyline points="10 9 9 9 8 9"></polyline>
-									</svg>
-									普通
-								</a>
-							</li>
-						</ul>
 						<!-- </div> -->
 				</nav>
 				<div class="col-9" class="mainArea">
@@ -158,9 +101,9 @@
 						<!-- 任务添加 -->
 						<div class="allList border border rounded shadow position-sticky" id="l1">
 							<div class="todo-name h1" id="TodoName">所有任务</div>
-							<div class="card" style="width: 24rem;">
+							<div class="card" style="width: 24rem;height: 40rem; overflow-y: auto;">
 								<ul class="list-group list-group-flush" id="list">
-									
+
 								</ul>
 							</div>
 							<div class="form-upload border-top">
@@ -180,19 +123,16 @@
 								</form>
 							</div>
 						</div>
-						
+
 						<!-- 任务详情 -->
 						<div class="allList border border rounded shadow position-sticky hide" id="listDetail">
-							<div class="todo-name h1" id="TodoName">任务名称</div>
-							<form action="" class="">
-								<label for="closing-time">截止时间</label>
-								<input type="date" id="closing-time"><br>
-								<label for="">标签</label>
-								<input type="text" id="table"><br>
-								<label for="txt">备注</label>
-								<input type="text" id="txt"><br>
-								<button type="button" class="btn btn-outline-primary btn-close">保存</button>
-							</form>
+							<div class="todo-name h1" id="TodoName"></div>
+							<label for="closing-time">截止时间</label>
+							<input type="date" id="closing-time"><br>
+							<label for="txt">备注</label>
+							<input type="text" id="txt"><br>
+							<button type="button" class="btn btn-outline-primary btn-close">取消</button>
+							<button type="button" class="btn btn-outline-primary btn-update">保存</button>
 						</div>
 					</div>
 				</div>

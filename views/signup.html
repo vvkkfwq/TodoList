@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>#Login</title>
+    <title>signUp</title>
     <link rel="stylesheet" href="/stylesheets/login-style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -16,26 +16,44 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
 </head>
 
 <body class="text-center">
     <script>
         $(document).ready(function () {
             $("#sign-up").click(function () {
-                console.log("1");
-                window.location.href = "/signup";
+                var obj = {};
+                obj['UserName'] = $("#userName").val();
+                obj['PassWord'] = $("#userPsw").val();
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:3000/sign',
+                    data: obj,
+                    success: function (data) {
+                        if (data) {
+                            alert("注册成功");
+                            window.location.href = "/";
+                        } else {
+                            alert("注册失败，请重试");
+                            window.location.reload();
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                })
             });
-        })
+        });
     </script>
     <div id="title">TodoList</div>
-    <h4>Please Sign In</h3>
-        <form action="/index" class="form-signin" method="POST">
+    <h4>Please Sign Up</h3>
+        <form action="#" class="form-signin">
             <input type="text" name="userName" id="userName" placeholder="UserName" class="form-control" required
                 autofocus>
             <input type="password" name="userPsw" id="userPsw" placeholder="Password" class="form-control" required>
-            <button type="submit" class="btn btn-lg btn-primary btn-block" id="sign">登陆</button>
             <button type="button" class="btn btn-lg btn-primary btn-block" id="sign-up">注册</button>
-            <h4><%=message%></h4>
         </form>
         <div id="bottom">By VickeyFeng</div>
 </body>
