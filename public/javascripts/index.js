@@ -148,7 +148,7 @@ $(document).ready(function () {
     });
 
     $(".btn-update").click(function () {
-        var name = $("#listDetail #TodoName").text();
+        var name = $("#listDetail #TodoName2").text();
         var obj = {};
         obj['Todo_Name'] = name;
         obj['Closing_Date'] = $("#closing-time").val();
@@ -198,7 +198,7 @@ $(document).ready(function () {
                     }
                     $("#txt").val(data[0].Comment);
                     $("#listDetail").removeClass("hide");
-                    $("#listDetail #TodoName").html(str);
+                    $("#listDetail #TodoName2").html(str);
                 }
                 else{
                     alert("查询不到此任务名称，请检查再输入");

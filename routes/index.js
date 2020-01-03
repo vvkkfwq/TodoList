@@ -290,6 +290,7 @@ router.post('/setDetail', function(req, res, next){
       var name = req.body.Todo_Name;
       var updateDate = req.body.Closing_Date;
       var updateComment = req.body.Comment; 
+      console.log(updateComment);
       if (updateDate == ""){
         updateDate = null;
       }
